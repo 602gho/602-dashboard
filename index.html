@@ -210,11 +210,24 @@
             text-align: center;
         }
 
-        #refresh-countdown {
-            margin: 0 0 1rem 0;
+        #update-time {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            text-align: left;
+            margin: 0;
             color: #fff;
             font-size: clamp(12px, 1.5vw, 14px);
-            text-align: center;
+        }
+
+        #refresh-countdown {
+            position: absolute;
+            top: 30px;
+            left: 10px;
+            text-align: left;
+            margin: 0;
+            color: #fff;
+            font-size: clamp(12px, 1.5vw, 14px);
         }
 
         .weather-section {
@@ -407,6 +420,29 @@
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
+            }
+
+            #update-time {
+                position: static;
+                text-align: center;
+                margin: 0.5rem 0;
+            }
+
+            #refresh-countdown {
+                position: static;
+                text-align: center;
+                margin: 0.5rem 0;
+            }
+
+            #org-icon {
+                display: none;
+            }
+
+            #current-datetime {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
             }
         }
     </style>
