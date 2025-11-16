@@ -226,8 +226,24 @@ async function fetchWeatherData() {
             } else if (currentData.forecastWeather) {
                 weatherDesc = currentData.forecastWeather;
             } else if (iconCode !== null) {
-                // Use icon code to get description as fallback
-                weatherDesc = getWeatherDescription(iconCode);
+                // Use icon code to get description as fallback, but validate against temperature
+                const iconDesc = getWeatherDescription(iconCode);
+                const tempValue = parseInt(temp.value);
+                
+                // Only use icon description if it makes sense with the temperature
+                // Don't show "非常炎熱" or "炎熱" if temperature is below 28°C
+                // Don't show "非常寒冷" or "寒冷" if temperature is above 15°C
+                if (iconDesc) {
+                    if ((iconDesc.includes('炎熱') || iconDesc.includes('熱')) && tempValue < 28) {
+                        // Temperature doesn't match hot description, skip it
+                        weatherDesc = '';
+                    } else if ((iconDesc.includes('寒冷') || iconDesc.includes('冷')) && tempValue > 15) {
+                        // Temperature doesn't match cold description, skip it
+                        weatherDesc = '';
+                    } else {
+                        weatherDesc = iconDesc;
+                    }
+                }
             }
 
             // Determine what to show in the third line
