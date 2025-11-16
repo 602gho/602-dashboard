@@ -125,8 +125,8 @@
         .weather-card {
             flex: 1;
             min-width: 200px;
-            max-width: 300px;
-            padding: 15px;
+            max-width: 100%;
+            padding: 20px;
             background-color: #222222;
             border: 1px solid #333333;
         }
@@ -142,6 +142,33 @@
             margin: 8px 0;
             color: #ffffff;
             font-size: 1.1em;
+        }
+
+        .weather-info-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .weather-info-text {
+            flex: 1;
+            display: flex;
+            gap: 30px;
+        }
+
+        .weather-info-text p {
+            margin: 0;
+            font-size: 1.3em;
+        }
+
+        .weather-icon-display {
+            font-size: 5em;
+            line-height: 1;
+            text-align: center;
+            flex-shrink: 0;
         }
 
         .current-weather {
@@ -174,15 +201,31 @@
             .weather-card {
                 max-width: 100%;
             }
+
+            .weather-info-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .weather-info-text {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .weather-icon-display {
+                font-size: 4em;
+            }
         }
     </style>
 </head>
 <body>
     <div id="current-datetime"></div>
-    <h1>下一班列車資料 - 杏花邨站 (港島線)</h1>
+    <h1>杏花邨下一班列車</h1>
     <div class="container">
         <div id="up-direction" class="direction">
-            <h2>往柴灣方向</h2>
+            <h2>往柴灣</h2>
             <table>
                 <thead>
                     <tr>
@@ -195,7 +238,7 @@
             </table>
         </div>
         <div id="down-direction" class="direction">
-            <h2>往堅尼地城方向</h2>
+            <h2>往堅尼地城</h2>
             <table>
                 <thead>
                     <tr>

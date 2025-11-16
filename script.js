@@ -106,6 +106,82 @@ async function fetchTrainData() {
 /* ============================================
    Weather Data Functions
    ============================================ */
+function getWeatherIcon(iconCode) {
+    // HKO Weather Icon Codes - based on official HKO documentation
+    const iconMap = {
+        '50': '☀️', // Sunny
+        '51': '🌤️', // Sunny Periods
+        '52': '⛅', // Sunny Intervals
+        '53': '🌥️', // Sunny Periods with A Few Showers
+        '54': '🌦️', // Sunny Intervals with Showers
+        '60': '☁️', // Cloudy
+        '61': '☁️', // Overcast
+        '62': '🌧️', // Light Rain
+        '63': '🌧️', // Rain
+        '64': '⛈️', // Heavy Rain
+        '65': '⛈️', // Thunderstorms
+        '70': '☀️', // Fine
+        '71': '🌙', // Fine (Night)
+        '72': '💨', // Windy
+        '73': '🌫️', // Fog
+        '74': '🌫️', // Mist
+        '75': '🌫️', // Haze
+        '76': '☀️', // Hot (use sun icon)
+        '77': '☀️', // Very Hot (use sun icon instead of thermometer)
+        '80': '🌧️', // Light Rain
+        '81': '🌧️', // Rain
+        '82': '⛈️', // Heavy Rain
+        '85': '❄️', // Snow
+        '90': '☀️', // Hot (use sun icon)
+        '91': '☁️', // Cold (use cloud icon)
+        '92': '☀️', // Very Hot (use sun icon)
+        '93': '☁️', // Very Cold (use cloud icon)
+    };
+    const codeStr = String(iconCode);
+    const icon = iconMap[codeStr];
+    
+    // Debug: log the icon code being used
+    if (!icon) {
+        console.log('Unknown weather icon code:', iconCode);
+    }
+    
+    return icon || '🌤️';
+}
+
+function getWeatherDescription(iconCode) {
+    // Map icon codes to weather descriptions in Traditional Chinese
+    const descMap = {
+        '50': '晴天',
+        '51': '間中有陽光',
+        '52': '間中有陽光',
+        '53': '間中有陽光，有幾陣驟雨',
+        '54': '間中有陽光，有驟雨',
+        '60': '多雲',
+        '61': '密雲',
+        '62': '微雨',
+        '63': '有雨',
+        '64': '大雨',
+        '65': '雷暴',
+        '70': '天晴',
+        '71': '天晴',
+        '72': '有風',
+        '73': '有霧',
+        '74': '有薄霧',
+        '75': '有煙霞',
+        '76': '炎熱',
+        '77': '非常炎熱',
+        '80': '微雨',
+        '81': '有雨',
+        '82': '大雨',
+        '85': '有雪',
+        '90': '炎熱',
+        '91': '寒冷',
+        '92': '非常炎熱',
+        '93': '非常寒冷',
+    };
+    return descMap[String(iconCode)] || '';
+}
+
 async function fetchWeatherData() {
     try {
         const weatherDiv = document.getElementById('weather-info');
@@ -121,7 +197,41 @@ async function fetchWeatherData() {
             const temp = currentData.temperature.data[0];
             const humidity = currentData.humidity ? currentData.humidity.data[0] : null;
 
-            let rainfallInfo = '無降雨';
+            let weatherIcon = '🌤️';
+            let weatherDesc = '';
+            let iconCode = null;
+            
+            // Debug: log the API response to see what we're getting
+            console.log('Weather API Response:', currentData);
+            
+            if (currentData.icon && currentData.icon.length > 0) {
+                iconCode = currentData.icon[0];
+                console.log('Icon code from API:', iconCode);
+                weatherIcon = getWeatherIcon(iconCode);
+            } else if (currentData.forecastIcon) {
+                iconCode = currentData.forecastIcon;
+                console.log('Forecast icon code from API:', iconCode);
+                weatherIcon = getWeatherIcon(iconCode);
+            } else {
+                console.log('No icon data found in API response');
+            }
+
+            // Try multiple fields for weather description
+            if (currentData.weather && currentData.weather.length > 0) {
+                weatherDesc = currentData.weather[0];
+            } else if (currentData.weatherDesc) {
+                weatherDesc = currentData.weatherDesc;
+            } else if (currentData.weatherInfo) {
+                weatherDesc = currentData.weatherInfo;
+            } else if (currentData.forecastWeather) {
+                weatherDesc = currentData.forecastWeather;
+            } else if (iconCode !== null) {
+                // Use icon code to get description as fallback
+                weatherDesc = getWeatherDescription(iconCode);
+            }
+
+            // Determine what to show in the third line
+            let rainfallInfo = '';
             if (currentData.rainfall && currentData.rainfall.data && currentData.rainfall.data.length > 0) {
                 const rainfallData = currentData.rainfall.data;
                 let maxRainfall = 0;
@@ -134,16 +244,28 @@ async function fetchWeatherData() {
 
                 if (maxRainfall > 0) {
                     rainfallInfo = `降雨: ${maxRainfall} 毫米`;
+                } else {
+                    // No rain, show weather description
+                    rainfallInfo = weatherDesc || '無降雨';
                 }
+            } else {
+                // No rainfall data, show weather description
+                rainfallInfo = weatherDesc || '無降雨';
             }
 
             const currentCard = document.createElement('div');
             currentCard.className = 'weather-card current-weather';
             currentCard.innerHTML = `
-                <h3>目前天氣</h3>
-                <p><strong>溫度:</strong> ${temp.value}°C</p>
-                ${humidity ? `<p><strong>濕度:</strong> ${humidity.value}%</p>` : ''}
-                <p><strong>${rainfallInfo}</strong></p>
+                <div class="weather-info-container">
+                    <div class="weather-info-text">
+                        <p><strong>溫度:</strong> ${temp.value}°C</p>
+                        ${humidity ? `<p><strong>濕度:</strong> ${humidity.value}%</p>` : ''}
+                        <p><strong>${rainfallInfo}</strong></p>
+                    </div>
+                    <div class="weather-icon-display">
+                        ${weatherIcon}
+                    </div>
+                </div>
             `;
             weatherDiv.appendChild(currentCard);
         } else {
