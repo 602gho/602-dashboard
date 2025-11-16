@@ -9,10 +9,10 @@
         :root {
             --bg: #000;
             --text: #fff;
-            --border: #333;
+            --border: rgba(51, 51, 51, 0.5);
             --muted: #888;
-            --card-bg: #1a1a1a;
-            --section-bg: #111;
+            --card-bg: rgba(26, 26, 26, 0.6);
+            --section-bg: rgba(17, 17, 17, 0.5);
         }
 
         body {
@@ -23,6 +23,93 @@
             font-family: Arial, sans-serif;
             font-size: clamp(16px, 2.2vw, 22px);
             line-height: 1.45;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(
+                45deg,
+                #001a33 0%,
+                #003366 25%,
+                #004d80 50%,
+                #002244 75%,
+                #001a33 100%
+            );
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            background: radial-gradient(circle, rgba(100, 180, 255, 0.5) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Grid overlay effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(100, 150, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 150, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 30s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
         }
 
         h1 {
@@ -84,12 +171,12 @@
         }
 
         th {
-            background-color: var(--border);
+            background-color: rgba(51, 51, 51, 0.7);
             font-weight: bold;
         }
 
         tr:nth-child(even) {
-            background-color: #222;
+            background-color: rgba(34, 34, 34, 0.4);
         }
 
         #current-datetime {
@@ -184,12 +271,12 @@
         }
 
         .current-weather-table th {
-            background-color: var(--border);
+            background-color: rgba(51, 51, 51, 0.7);
             font-weight: bold;
         }
 
         .current-weather-table tr:nth-child(even) {
-            background-color: #222;
+            background-color: rgba(34, 34, 34, 0.4);
         }
 
         .forecast-grid {
@@ -212,8 +299,8 @@
         }
 
         .forecast-card:hover {
-            background-color: #222;
-            border-color: #555;
+            background-color: rgba(34, 34, 34, 0.7);
+            border-color: rgba(85, 85, 85, 0.8);
             transform: translateY(-2px);
         }
 

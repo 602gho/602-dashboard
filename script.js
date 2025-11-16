@@ -255,3 +255,40 @@ fetchWeatherData();
 setInterval(fetchTrainData, 30000);
 setInterval(fetchWeatherData, 600000); // Update every 10 minutes
 
+// Create floating particles for background animation
+function createParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Random size between 20px and 80px
+    const size = Math.random() * 60 + 20;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Random horizontal position
+    particle.style.left = `${Math.random() * 100}%`;
+    
+    // Random animation duration between 15 and 30 seconds
+    const duration = Math.random() * 15 + 15;
+    particle.style.animationDuration = `${duration}s`;
+    
+    // Random delay
+    particle.style.animationDelay = `${Math.random() * 5}s`;
+    
+    document.body.appendChild(particle);
+    
+    // Remove particle after animation completes
+    setTimeout(() => {
+        particle.remove();
+    }, (duration + 5) * 1000);
+}
+
+// Create initial particles
+for (let i = 0; i < 15; i++) {
+    setTimeout(() => createParticle(), i * 200);
+}
+
+// Continuously create new particles
+setInterval(() => {
+    createParticle();
+}, 2000);
