@@ -19,11 +19,22 @@
             /* Typography */
             --base-min: 16px;
             --base-max: 22px;
+
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+
+            /* Border */
+            --border-width: 1px;
+            --border-width-thick: 2px;
         }
 
         body {
             margin: 0;
-            padding: 0.5rem;
+            padding: var(--spacing-sm);
             background-color: var(--bg);
             color: var(--text);
             font-family: Arial, sans-serif;
@@ -33,7 +44,7 @@
 
         /* Typography */
         h1 {
-            margin: 0.5rem 0;
+            margin: var(--spacing-sm) 0;
             color: var(--text);
             font-size: clamp(26px, 6.5vw, 64px);
             text-align: center;
@@ -53,7 +64,7 @@
             flex: 1;
             padding: clamp(10px, 2vw, 20px);
             background-color: var(--card-bg);
-            border: 1px solid var(--border);
+            border: var(--border-width) solid var(--border);
             display: flex;
             flex-direction: column;
             gap: clamp(8px, 1vw, 12px);
@@ -62,9 +73,9 @@
         .direction h2 {
             margin: 0;
             color: var(--text);
-            font-size: clamp(18px, 3.6vw, 34px);
+            font-size: clamp(20px, 5vw, 48px);
             text-align: center;
-            padding: 0.5rem 0;
+            padding: var(--spacing-sm) 0;
         }
 
         /* Tables */
@@ -75,7 +86,7 @@
 
         th, td {
             padding: clamp(8px, 1.6vw, 14px);
-            border: 1px solid var(--border);
+            border: var(--border-width) solid var(--border);
             color: var(--text);
             font-size: clamp(14px, 2.2vw, 20px);
             text-align: center;
@@ -93,7 +104,7 @@
 
         /* Date/Time Display */
         #current-datetime {
-            margin: 0.5rem 0;
+            margin: var(--spacing-sm) 0;
             color: var(--text);
             font-size: clamp(13px, 1.8vw, 18px);
             font-weight: 600;
@@ -102,7 +113,7 @@
 
         /* Error Messages */
         .error {
-            margin: 0.5rem 0;
+            margin: var(--spacing-sm) 0;
             color: #ff4d4d;
             font-size: clamp(14px, 2.5vw, 20px);
             text-align: center;
@@ -111,14 +122,14 @@
 
         /* Bottom Info */
         .bottom-info {
-            margin: 1rem 0 0.5rem 0;
+            margin: var(--spacing-md) 0 var(--spacing-sm) 0;
             color: var(--muted);
             font-size: clamp(12px, 1.5vw, 14px);
             text-align: center;
         }
 
         #refresh-countdown {
-            margin: 0.25rem 0 1rem 0;
+            margin: var(--spacing-xs) 0 var(--spacing-md) 0;
             color: var(--muted);
             font-size: clamp(12px, 1.5vw, 14px);
             text-align: center;
@@ -126,16 +137,16 @@
 
         /* Weather Section */
         .weather-section {
-            margin: 1rem 0;
+            margin: var(--spacing-md) 0;
             padding: clamp(10px, 3vw, 20px);
             background-color: var(--panel-bg);
-            border: 1px solid var(--border);
+            border: var(--border-width) solid var(--border);
         }
 
         .weather-section h2 {
-            margin: 0 0 1rem 0;
+            margin: 0 0 var(--spacing-md) 0;
             color: #ffffff;
-            font-size: clamp(18px, 4vw, 40px);
+            font-size: clamp(24px, 6vw, 56px);
             text-align: center;
         }
 
@@ -152,18 +163,18 @@
             max-width: 100%;
             padding: clamp(10px, 2vw, 20px);
             background-color: var(--card-bg);
-            border: 1px solid var(--border);
+            border: var(--border-width) solid var(--border);
         }
 
         .weather-card h3 {
-            margin: 0 0 0.5rem 0;
+            margin: 0 0 var(--spacing-sm) 0;
             color: #ffffff;
             font-size: clamp(14px, 2.5vw, 22px);
             text-align: center;
         }
 
         .weather-card p {
-            margin: 0.5rem 0;
+            margin: var(--spacing-sm) 0;
             color: var(--text);
             font-size: clamp(14px, 2vw, 18px);
         }
@@ -188,36 +199,36 @@
 
         .current-weather {
             background-color: #1a1a1a;
-            border: 2px solid #444444;
+            border: var(--border-width-thick) solid #444444;
         }
 
         /* Train Section - match weather section visuals */
         .train-section {
-            margin: 1rem 0;
+            margin: var(--spacing-md) 0;
             padding: clamp(10px, 3vw, 20px);
             background-color: #111111;
-            border: 1px solid #333333;
+            border: var(--border-width) solid #333333;
         }
 
         .train-section h1 {
-            margin: 0 0 1rem 0;
+            margin: 0 0 var(--spacing-md) 0;
             color: #ffffff;
             font-size: clamp(24px, 6vw, 56px);
             text-align: center;
         }
 
         .train-section h2 {
-            margin: 0 0 1rem 0;
+            margin: 0;
             color: #ffffff;
             font-size: clamp(18px, 4vw, 40px);
             text-align: center;
-            padding: 0.25rem 0;
+            padding: var(--spacing-xs) 0;
         }
 
         /* Media Queries - Tablet */
         @media (max-width: 1024px) {
             body {
-                padding: 0.75rem;
+                padding: var(--spacing-sm);
             }
 
             .container {
@@ -232,7 +243,7 @@
         /* Media Queries - Mobile */
         @media (max-width: 768px) {
             body {
-                padding: 0.5rem;
+                padding: var(--spacing-sm);
             }
 
             .container {
@@ -241,8 +252,8 @@
             }
 
             .direction h2 {
-                padding: 0.75rem;
-                margin-bottom: 0.5rem;
+                padding: var(--spacing-md);
+                margin-bottom: var(--spacing-sm);
             }
 
             th, td {
@@ -259,23 +270,23 @@
             }
 
             .weather-card p {
-                margin: 0.25rem 0;
+                margin: var(--spacing-xs) 0;
             }
         }
 
         /* Media Queries - Small Mobile */
         @media (max-width: 480px) {
             body {
-                padding: 0.25rem;
+                padding: var(--spacing-xs);
             }
 
             #current-datetime {
-                margin: 0.25rem 0;
+                margin: var(--spacing-xs) 0;
             }
 
             .direction {
                 padding: clamp(8px, 1.5vw, 12px);
-                margin-bottom: 0.5rem;
+                margin-bottom: var(--spacing-sm);
             }
 
             th, td {
@@ -284,7 +295,7 @@
 
             .weather-section {
                 padding: clamp(8px, 2vw, 12px);
-                margin: 0.5rem 0;
+                margin: var(--spacing-sm) 0;
             }
 
             .weather-card {
@@ -295,7 +306,7 @@
         /* Large Screen (TV/Desktop) */
         @media (min-width: 1920px) {
             body {
-                padding: 1.5rem;
+                padding: var(--spacing-lg);
             }
 
             .container {
@@ -308,7 +319,7 @@
 
             .weather-section {
                 padding: 30px;
-                margin: 2rem 0;
+                margin: var(--spacing-xl) 0;
             }
         }
     </style>
@@ -318,33 +329,32 @@
     <div class="train-section">
         <h1>杏花邨下一班列車</h1>
         <div class="container">
-        <div id="up-direction" class="direction">
-            <h2>往柴灣</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>序號</th>
-                        <th>抵達時間</th>
-                        <th>剩餘分鐘</th>
-                    </tr>
-                </thead>
-                <tbody id="up-tbody"></tbody>
-            </table>
-        </div>
-        <div id="down-direction" class="direction">
-            <h2>往堅尼地城</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>序號</th>
-                        <th>抵達時間</th>
-                        <th>剩餘分鐘</th>
-                    </tr>
-                </thead>
-                <tbody id="down-tbody"></tbody>
-            </table>
-        </div>
-    </div>
+            <div id="up-direction" class="direction">
+                <h2>往柴灣</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>序號</th>
+                            <th>抵達時間</th>
+                            <th>剩餘分鐘</th>
+                        </tr>
+                    </thead>
+                    <tbody id="up-tbody"></tbody>
+                </table>
+            </div>
+            <div id="down-direction" class="direction">
+                <h2>往堅尼地城</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>序號</th>
+                            <th>抵達時間</th>
+                            <th>剩餘分鐘</th>
+                        </tr>
+                    </thead>
+                    <tbody id="down-tbody"></tbody>
+                </table>
+            </div>
         </div>
         <div id="error-message" class="error"></div>
     </div>
