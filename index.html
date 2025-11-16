@@ -38,14 +38,14 @@
             z-index: -1;
             background: linear-gradient(
                 45deg,
-                #001a33 0%,
-                #003366 25%,
-                #004d80 50%,
-                #002244 75%,
-                #001a33 100%
+                #800080 0%,
+                #4B0082 25%,
+                #00FFFF 50%,
+                #008080 75%,
+                #800080 100%
             );
             background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
+            animation: gradientShift 120s ease infinite;
         }
 
         @keyframes gradientShift {
@@ -170,8 +170,8 @@
         }
 
         th {
-            background-color: rgba(51, 51, 51, 0.7);
-            font-weight: bold;
+            background-color: rgba(51, 51, 51, 0.3);
+            font-weight: 700;
         }
 
         tr:nth-child(even) {
@@ -270,8 +270,8 @@
         }
 
         .current-weather-table th {
-            background-color: rgba(51, 51, 51, 0.7);
-            font-weight: bold;
+            background-color: rgba(51, 51, 51, 0.3);
+            font-weight: 700;
         }
 
         .current-weather-table tr:nth-child(even) {
@@ -297,11 +297,7 @@
             justify-content: space-between;
         }
 
-        .forecast-card:hover {
-            background-color: rgba(34, 34, 34, 0.7);
-            border-color: rgba(85, 85, 85, 0.8);
-            transform: translateY(-2px);
-        }
+
 
         .forecast-date {
             font-size: clamp(12px, 1.6vw, 14px);
