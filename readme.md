@@ -1,3 +1,3 @@
-# Next Trains at Heng Fa Chuen (Island Line)
+# 602 dashboard
 
-🌐 **Live Site:** https://602gho.github.io/mtr-isl-hfc-webpage/
+🌐 **Live Site:** https://602gho.github.io/602-dashboard/
